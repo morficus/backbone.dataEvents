@@ -26,5 +26,8 @@
     ],
     "dependencies": {
         "backbone": "~1.1.2"
+    },
+    "devDependencies": {
+        "jquery": "~2.1.3"
     }
 }
