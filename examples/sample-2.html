@@ -1,0 +1,62 @@
+<html>
+<head>
+    <script src="../bower_components/underscore/underscore-min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js" ></script>
+    <script src="../bower_components/backbone/backbone.js"></script>
+    <script src="../src/modelEvents.js"></script>
+</head>
+<body>
+
+<div id="sample-1">
+
+</div>
+
+<script>
+    var MyModel = Backbone.Model.extend({
+        defaults: {
+            name: 'Maurice',
+            age: 29,
+            location: 'Michigan'
+        }
+    });
+
+    var MyCollection = Backbone.Collection.extend({
+        model: MyModel
+    });
+
+    var MyView = Backbone.View.extend({
+
+        tagName: 'div',
+
+        initialize: function () {
+            this.collection = new MyCollection();
+        },
+
+        collectionEvents: {
+            'add': 'myFunc1',
+            'remove': function () {
+                console.log('executing in-line function');
+            },
+            'change': ['myFunc1', 'myFunc2']
+        },
+
+        myFunc1: function (model, newValue) {
+            console.log('executing "myFunc1"');
+        },
+
+        myFunc2: function (model, newValue) {
+            console.log('executing "myFunc2"');
+        }
+    });
+
+    window.myView = new MyView({el: '#sample-1'});
+
+    var john = window.myView.collection.add({'name': 'John', 'age': '30'});
+    var joe = window.myView.collection.add({'name': 'Joe', 'age': '28'});
+    window.myView.collection.remove(john);
+    joe.set('age', 29);
+
+
+</script>
+</body>
+</html>
