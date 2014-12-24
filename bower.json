@@ -1,0 +1,30 @@
+{
+    "name": "backbone.modelEvents",
+    "version": "0.0.0",
+    "homepage": "https://github.com/morficus/cordova-2.1.0_requirejs-2.0.6",
+    "authors": [
+        "Maurice Williams <morficus@gmail.com>"
+    ],
+    "description": "A simple way to listen to events triggered by models and collection in a Backbone.js applications.",
+    "moduleType": [
+        "amd",
+        "globals"
+    ],
+    "keywords": [
+        "backbone",
+        "backbone.collection",
+        "backbone.model",
+        "events"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "backbone": "~1.1.2"
+    }
+}

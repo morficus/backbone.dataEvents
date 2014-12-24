@@ -1,0 +1,14 @@
+{
+    "name": "backbone.modelEvents",
+    "version": "0.0.0",
+    "description": "A simple way to listen to events triggered by models and collection in a Backbone.js applications.",
+    "main": "index.js",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Maurice Williams <morficus@gmail.com>",
+    "license": "MIT"
+}
