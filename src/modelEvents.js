@@ -36,11 +36,19 @@
 
         // automatically bind to model and collection events
         if (this.modelEvents) {
-            bindEvents(_.result(this, 'modelEvents'), 'model');
+            if (this.hasOwnProperty('collection')) {
+                bindEvents(_.result(this, 'modelEvents'), 'model');
+            } else {
+                console.warn('No model defined: You defined a "modelEvents" hash but your view does not have a "model" attribute.');
+            }
         }
 
         if (this.collectionEvents) {
-            bindEvents(_.result(this, 'collectionEvents'), 'collection');
+            if (this.hasOwnProperty('collection')) {
+                bindEvents(_.result(this, 'collectionEvents'), 'collection');
+            } else {
+                console.error('No collection defined: You defined a "collectionEvents" hash but your view does not have a "collection" attribute.');
+            }
         }
 
 
