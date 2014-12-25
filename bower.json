@@ -15,7 +15,10 @@
         "backbone",
         "backbone.collection",
         "backbone.model",
-        "events"
+        "events",
+        "modelEvents",
+        "collectionEvents",
+        "dataEvents"
     ],
     "license": "MIT",
     "ignore": [
