@@ -23,8 +23,7 @@
 
             // check that the entity type (model or collection) exists before trying to listen to its events
             if (!that.hasOwnProperty(entity)) {
-                console.error('No "' + entity + '" defined: You defined a "' + entity + 'Events" hash but your view does not have a "' + entity + '" attribute.');
-                return this;
+                throw 'No "' + entity + '" defined: You defined a "' + entity + 'Events" hash but your view does not have a "' + entity + '" attribute.';
             }
 
             _.each( eventHash, function (handler, event) {
@@ -54,10 +53,15 @@
         return this;
     });
 
-    // TODO: need to check if this is even needed, Backbone might already be cleaning up these events on its own
     ViewPrototype.undelegateEvents = _.wrap(ViewPrototype.delegateEvents, function(original, events) {
         original.call(this, events);
 
-        this.stopListening(this.model);
+        if (this.modelEvents) {
+            this.stopListening(this.model);
+        }
+
+        if (this.collectionEvents) {
+            this.stopListening(this.collection);
+        }
     });
 });
