@@ -10,5 +10,9 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Maurice Williams <morficus@gmail.com>",
-    "license": "MIT"
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/morficus/backbone.dataEvents.git"
+    }
 }
