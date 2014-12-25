@@ -8,7 +8,7 @@
     "newcap" : true,
     "noarg" : true,
     "noempty" : true,
-    "quotemark" : "single",
+    "quotmark" : "single",
     "undef" : true,
     "unused" : true,
     "strict" : false,
@@ -25,9 +25,11 @@
 
     "onevar" : true,
 
-    "globals": [
-        "define",
-        "require",
-        "module"
-    ]
+    "globals": {
+        "define": true,
+        "require": true,
+        "module": true,
+        "define": true,
+        "exports": true
+    }
 }

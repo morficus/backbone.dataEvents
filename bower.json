@@ -2,6 +2,7 @@
     "name": "backbone.dataEvents",
     "version": "0.0.0",
     "homepage": "https://github.com/morficus/backbone.dataEvents",
+    "main": "dist/dataEvents.js",
     "authors": [
         "Maurice Williams <morficus@gmail.com>"
     ],

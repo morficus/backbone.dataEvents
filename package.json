@@ -2,7 +2,7 @@
     "name": "backbone.dataEvents",
     "version": "0.0.0",
     "description": "A simple way to listen to events triggered by models and collection in a Backbone.js applications.",
-    "main": "index.js",
+    "main": "dist/dataEvents.js",
     "directories": {
         "test": "tests"
     },
@@ -14,5 +14,17 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/morficus/backbone.dataEvents.git"
+    },
+    "devDependencies": {
+        "blanket": "^1.1.6",
+        "chai": "^1.10.0",
+        "grunt": "^0.4.5",
+        "grunt-cli": "^0.1.13",
+        "grunt-contrib-clean": "^0.6.0",
+        "grunt-contrib-copy": "^0.7.0",
+        "grunt-contrib-jshint": "^0.10.0",
+        "grunt-contrib-uglify": "^0.7.0",
+        "matchdep": "^0.3.0",
+        "mocha": "^2.1.0"
     }
 }

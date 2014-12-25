@@ -23,8 +23,7 @@
 
             // check that the entity type (model or collection) exists before trying to listen to its events
             if (!that.hasOwnProperty(entity)) {
-                console.error('No "' + entity + '" defined: You defined a "' + entity + 'Events" hash but your view does not have a "' + entity + '" attribute.');
-                return this;
+                throw 'No "' + entity + '" defined: You defined a "' + entity + 'Events" hash but your view does not have a "' + entity + '" attribute.';
             }
 
             _.each( eventHash, function (handler, event) {
