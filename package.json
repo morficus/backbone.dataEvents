@@ -1,5 +1,5 @@
 {
-    "name": "backbone.modelEvents",
+    "name": "backbone.dataEvents",
     "version": "0.0.0",
     "description": "A simple way to listen to events triggered by models and collection in a Backbone.js applications.",
     "main": "index.js",
