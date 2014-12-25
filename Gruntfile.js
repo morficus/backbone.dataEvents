@@ -10,6 +10,20 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        // ### grunt-contrib-jasmine
+        // Test cases
+        jasmine: {
+            src: ['src/dataEvents.js'],
+            options: {
+                specs: 'tests/**/*.spec.js',
+                vendor: [
+                    'bower_components/jquery/dist/jquery.js',
+                    'bower_components/underscore/underscore.js',
+                    'bower_components/backbone/backbone.js'
+                ]
+            }
+        },
+
         // ### grunt-contrib-jshint
         jshint: {
             all : [
@@ -48,5 +62,6 @@ module.exports = function (grunt) {
         clean: ['dist/']
     });
 
-    grunt.registerTask('default', ['jshint:all', 'clean', 'copy:dist', 'uglify:dist']);
+    grunt.registerTask('default', ['validate', 'clean', 'copy:dist', 'uglify:dist']);
+    grunt.registerTask('validate', ['jshint:all', 'jasmine']);
 };
