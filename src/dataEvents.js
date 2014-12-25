@@ -20,6 +20,13 @@
 
         // private helper function for handling event binding
         bindEvents = function (eventHash, entity) {
+
+            // check that the entity type (model or collection) exists before trying to listen to its events
+            if (!that.hasOwnProperty(entity)) {
+                console.error('No "' + entity + '" defined: You defined a "' + entity + 'Events" hash but your view does not have a "' + entity + '" attribute.');
+                return this;
+            }
+
             _.each( eventHash, function (handler, event) {
                 if (_.isString(handler)) {
                     that.listenTo(that[entity], event, that[handler]);
@@ -36,19 +43,11 @@
 
         // automatically bind to model and collection events
         if (this.modelEvents) {
-            if (this.hasOwnProperty('collection')) {
-                bindEvents(_.result(this, 'modelEvents'), 'model');
-            } else {
-                console.warn('No model defined: You defined a "modelEvents" hash but your view does not have a "model" attribute.');
-            }
+            bindEvents(_.result(this, 'modelEvents'), 'model');
         }
 
         if (this.collectionEvents) {
-            if (this.hasOwnProperty('collection')) {
-                bindEvents(_.result(this, 'collectionEvents'), 'collection');
-            } else {
-                console.error('No collection defined: You defined a "collectionEvents" hash but your view does not have a "collection" attribute.');
-            }
+            bindEvents(_.result(this, 'collectionEvents'), 'collection');
         }
 
 
