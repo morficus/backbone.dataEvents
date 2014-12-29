@@ -1,6 +1,6 @@
 {
     "name": "backbone.dataEvents",
-    "version": "0.0.0",
+    "version": "0.9.0",
     "description": "A simple way to listen to events triggered by models and collection in a Backbone.js applications.",
     "main": "dist/dataEvents.js",
     "directories": {

@@ -53,7 +53,7 @@
         return this;
     });
 
-    ViewPrototype.undelegateEvents = _.wrap(ViewPrototype.delegateEvents, function(original, events) {
+    ViewPrototype.undelegateEvents = _.wrap(ViewPrototype.undelegateEvents, function(original, events) {
         original.call(this, events);
 
         if (this.modelEvents) {
