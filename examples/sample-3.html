@@ -1,0 +1,182 @@
+<html>
+<head>
+    <script src="../bower_components/underscore/underscore-min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js" ></script>
+    <script src="../bower_components/backbone/backbone.js"></script>
+    <script src="../src/dataEvents.js"></script>
+</head>
+<body>
+
+<div id="sample-1">
+    <form class="js-list-input">
+        <input type="hidden" readonly name="cid" />
+        <input type="text" name="name" placeholder="enter a name" />
+        <input type="number" name="age" placeholder="enter an age" />
+
+        <button type="submit">Add to list</button>
+        <button type="button" class="js-update" disabled>Update</button>
+    </form>
+
+    <div class="js-list-output">
+        <h2>People in the list (<span class="js-list-count">0</span>):</h2>
+        <ul>
+
+        </ul>
+    </div>
+</div>
+
+<script id="tpl-list-item" type="text/html">
+    <a class="js-delete" href="#" title="delete">[X]</a>
+    <a class="js-edit" href="#" title="edit">[E]</a>
+    <%= name %> is <%= age %> years old
+</script>
+
+<script>
+    var ListItem = Backbone.Model.extend({
+        defaults: {
+            name: 'Annon',
+            age: 999
+        }
+    });
+
+    var TheList = Backbone.Collection.extend({
+        model: ListItem
+    });
+
+    var ListInput = Backbone.View.extend({
+
+        events: {
+            'submit': 'addToList',
+            'click .js-update': 'saveUpdate'
+        },
+
+        //bind to events from the collection - in this case, it is a custom event called `editMe`
+        collectionEvents: {
+            'editMe': 'edit'
+        },
+
+        /**
+         * Grabs values from the form, adds them to the collection and clears the form
+         * @param event Submit event
+         */
+        addToList: function (event) {
+            event.preventDefault();
+            var name = this.$('[name="name"]').val(),
+                age = this.$('[name="age"]').val();
+
+            this.collection.add({name: name, age: age}, {merge: true});
+
+            this.el.reset();
+        },
+
+        /**
+         * Populates the form with existing values in the model
+         * @param model Model to be edited
+         */
+        edit: function (model) {
+            //we set the CID (which is a hidden field) to easily find the model later
+            this.$('[name="cid"]').val(model.cid);
+            this.$('[name="name"]').val(model.get('name'));
+            this.$('[name="age"]').val(model.get('age'));
+
+            //disable the "add" button, enable the "edit" button
+            this.$('.js-update').removeAttr('disabled');
+            this.$('[type="submit"]').attr('disabled', 'disabled');
+        },
+
+        /**
+         * Grabs values from the form and updates an existing model based on the CID
+         */
+        saveUpdate: function () {
+            event.preventDefault();
+            var name = this.$('[name="name"]').val(),
+                age = this.$('[name="age"]').val(),
+                cid = this.$('[name="cid"]').val();
+
+            var model = this.collection.get(cid);
+            model.set({name: name, age: age});
+
+            this.el.reset();
+
+            //disable the "edit" button, enable the "add" button
+            this.$('.js-update').attr('disabled', 'disabled');
+            this.$('[type="submit"]').removeAttr('disabled');
+        }
+    });
+
+    var ListOutput = Backbone.View.extend({
+
+        //bind to events triggered from the collection
+        collectionEvents: {
+            'add': ['insertNewItem', 'updateCount'],
+            'remove': 'updateCount'
+        },
+
+        /**
+         * Create a new view for every item in the collection and appends it to the screen
+         */
+        insertNewItem: function (newModel) {
+            var item = new ListItem({model: newModel});
+
+            this.$('ul').append(item.render().el);
+        },
+
+        /**
+         * Update the counter
+         */
+        updateCount: function () {
+            this.$('.js-list-count').html( this.collection.length );
+        }
+    });
+
+    var ListItem = Backbone.View.extend({
+        events: {
+            'click .js-delete': 'removeItem',
+            'click .js-edit': 'editItem'
+        },
+
+        //bind to events triggered from the model
+        modelEvents: {
+            'change': 'render'
+        },
+
+        tagName: 'li',
+
+        template: _.template($('#tpl-list-item').html()),
+
+        /**
+         * Delete an item from the DOM and the collection
+         * @param event
+         */
+        removeItem: function (event) {
+            event.preventDefault();
+            this.model.destroy();
+            this.remove();
+        },
+
+        /**
+         * Flags a model as to be edited
+         */
+        editItem: function () {
+            this.model.trigger('editMe', this.model);
+        },
+
+        render: function () {
+            var item = this.template(this.model.toJSON());
+            this.$el.html(item);
+
+            return this;
+        }
+    });
+
+
+    //Instantiate each of our classes
+    var list = new TheList(),
+        listInput = new ListInput({el: '.js-list-input', collection: list}),
+        listOutput = new ListOutput({el: '.js-list-output', collection: list});
+
+
+
+</script>
+</body>
+</html>
