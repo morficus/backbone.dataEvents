@@ -12,7 +12,7 @@ Inspired by Backbone.Marionette's [modelEvents and collectionEvents](http://mari
 
 ## Usage
 
-`bower install backbone.dataEvents --save`
+`bower install backbone.dataevents --save`
 
 ### Getting it into your project
 The Backbone.dataEvents plugin follows the [UMD pattern](https://github.com/umdjs/umd) for JavaScript modules, that means that it can be loaded in a browser via a traditional `<script>` tag or a module loader (like [require.js](http://requirejs.org/)) or even server-side with Node.js  
